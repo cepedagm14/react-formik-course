@@ -7,8 +7,24 @@ const initialValues = {
   email: "",
   channel: "",
 };
+
+const validate = (values) => {
+  let errors = {};
+
+  if (!values.name) {
+    errors.name = "Required";
+  }
+  if (!values.email) {
+    errors.email = "Required";
+  }
+  if (!values.channel) {
+    errors.channel = "Required";
+  }
+  return errors;
+};
+
 const onSubmit = (values) => {
-  console.log("submit", values);
+  console.log("values", values);
 };
 
 const validationSchema = Yup.object({
@@ -17,14 +33,14 @@ const validationSchema = Yup.object({
   channel: Yup.string().required("Required"),
 });
 
-const YouTubeForm = () => {
+const OldYouTubeForm = () => {
   const formik = useFormik({
     initialValues,
     onSubmit,
     validationSchema,
     // validate,
   });
-  // console.log("field visitado", formik.touched);
+  console.log("field visitado", formik.touched);
   return (
     <div>
       <form onSubmit={formik.handleSubmit}>
@@ -34,8 +50,9 @@ const YouTubeForm = () => {
             type="text"
             id="name"
             name="name"
-            // reduciendo lineas repetitivas 
-            {...formik.getFieldProps("name")}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.name}
           />
           {formik.touched.name && formik.errors.name ? (
             <div className="error">{formik.errors.name}</div>
@@ -47,7 +64,9 @@ const YouTubeForm = () => {
             type="text"
             id="email"
             name="email"
-            {...formik.getFieldProps("email")}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.email}
           />
           {formik.touched.email && formik.errors.email ? (
             <div className="error">{formik.errors.email}</div>
@@ -59,7 +78,9 @@ const YouTubeForm = () => {
             type="text"
             id="channel"
             name="channel"
-            {...formik.getFieldProps("channel")}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.channel}
           />
           {formik.touched.channel && formik.errors.channel ? (
             <div className="error">{formik.errors.channel}</div>
@@ -68,8 +89,11 @@ const YouTubeForm = () => {
 
         <button type="submit">Submit</button>
       </form>
+      <pre>{JSON.stringify(formik.values, null, 2)}</pre>
     </div>
   );
 };
 
-export default YouTubeForm;
+export default OldYouTubeForm;
+import React from 'react'
+
