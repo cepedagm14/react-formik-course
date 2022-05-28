@@ -1,4 +1,5 @@
 import React from "react";
+import { TextField } from "@mui/material";
 import { Formik, Field, ErrorMessage, Form } from "formik";
 import * as Yup from "yup";
 import TextError from "./TextError";
@@ -13,6 +14,7 @@ const initialValues = {
     facebook: "",
     twitter: "",
   },
+  phone: ["", ""],
 };
 const onSubmit = (values) => {
   console.log("submit", values);
@@ -77,6 +79,15 @@ const YouTubeForm = () => {
         <div className="form-control">
           <label htmlFor="twitter">twitter</label>
           <Field type="text" id="twitter" name="social.twitter" />
+        </div>
+
+        <div className="form-control">
+          <label htmlFor="phone1">phone 1</label>
+          <Field type="text" id="phone1" name="phone[0]" />
+        </div>
+        <div className="form-control">
+          <label htmlFor="phone2">phone 2</label>
+          <Field type="text" id="phone2" name="phone[1]r" />
         </div>
         <button type="submit">Submit</button>
       </Form>
