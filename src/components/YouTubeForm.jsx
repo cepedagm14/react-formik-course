@@ -1,6 +1,6 @@
 import React from "react";
 import { TextField } from "@mui/material";
-import { Formik, Field, ErrorMessage, Form } from "formik";
+import { Formik, Field, ErrorMessage, Form, FieldArray } from "formik";
 import * as Yup from "yup";
 import TextError from "./TextError";
 
@@ -15,6 +15,7 @@ const initialValues = {
     twitter: "",
   },
   phone: ["", ""],
+  phNumbers: [""],
 };
 const onSubmit = (values) => {
   console.log("submit", values);
@@ -89,6 +90,39 @@ const YouTubeForm = () => {
           <label htmlFor="phone2">phone 2</label>
           <Field type="text" id="phone2" name="phone[1]r" />
         </div>
+
+        <div className="form-control">
+          <label htmlFor="">phone numbers</label>
+          {/* fiel array recibe como children una arrowFunctions donde ecibe un parametro y los mismos de desestructuran */}
+          <FieldArray name="phNumbers">
+            {(fieldArrayProps) => {
+              const { push, remove, form } = fieldArrayProps;
+              const { values } = form;
+              const { phNumbers } = values;
+              // console.log("fieldArrayProps", fieldArrayProps);
+              // console.log("values", values);
+              // console.log("phNumbers", phNumbers);
+              return (
+                <div>
+                  {phNumbers.map((phNumber, index) => (
+                    <div key={index}>
+                      <Field name={`phNumbers[${index}]`} />
+                      {index > 0 && (
+                        <button type="button" onClick={() => remove(index)}>
+                          Delete
+                        </button>
+                      )}
+                      <button type="button" onClick={() => push("")}>
+                        Adding
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              );
+            }}
+          </FieldArray>
+        </div>
+
         <button type="submit">Submit</button>
       </Form>
     </Formik>
