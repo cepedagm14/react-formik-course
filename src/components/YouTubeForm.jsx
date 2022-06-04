@@ -1,6 +1,6 @@
 import React from "react";
 import { TextField } from "@mui/material";
-import { Formik, Field, ErrorMessage, Form, FieldArray } from "formik";
+import { Formik, Field, ErrorMessage, Form, FieldArray, FastField } from "formik";
 import * as Yup from "yup";
 import TextError from "./TextError";
 
@@ -59,8 +59,9 @@ const YouTubeForm = () => {
 
         <div className="form-control">
           <label htmlFor="address">Address</label>
-          <Field id="address" name="address">
+          <FastField id="address" name="address">
             {(props) => {
+              console.log("field render");
               const { field, form, meta } = props;
               // console.log(props);
               return (
@@ -70,7 +71,7 @@ const YouTubeForm = () => {
                 </div>
               );
             }}
-          </Field>
+          </FastField>
         </div>
 
         <div className="form-control">
