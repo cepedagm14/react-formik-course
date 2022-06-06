@@ -1,6 +1,13 @@
 import React from "react";
 import { TextField } from "@mui/material";
-import { Formik, Field, ErrorMessage, Form, FieldArray, FastField } from "formik";
+import {
+  Formik,
+  Field,
+  ErrorMessage,
+  Form,
+  FieldArray,
+  FastField,
+} from "formik";
 import * as Yup from "yup";
 import TextError from "./TextError";
 
@@ -25,7 +32,17 @@ const validationSchema = Yup.object({
   name: Yup.string().required("Required"),
   email: Yup.string().email("invalid email format").required("Email required"),
   channel: Yup.string().required("Required"),
+  commenst: Yup.string().required("Requerido"),
 });
+
+const validateComments = (value) => {
+  let error;
+  if (!value) {
+    error = "Requerido";
+    console.log("validateComments");
+  }
+  return error;
+};
 
 const YouTubeForm = () => {
   return (
@@ -33,8 +50,8 @@ const YouTubeForm = () => {
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
-      validateOnChange={false}
-      validateOnBlur={false}
+      // validateOnChange={false}
+      // validateOnBlur={false}
     >
       <Form>
         <div className="form-control">
@@ -56,7 +73,13 @@ const YouTubeForm = () => {
         </div>
         <div className="form-control">
           <label htmlFor="commenst">Commenst</label>
-          <Field as="textarea" id="commenst" name="commenst" />
+          <Field
+            as="textarea"
+            id="commenst"
+            name="commenst"
+            validate={validateComments}
+          />
+          <ErrorMessage name="commenst" component={TextError} />
         </div>
 
         <div className="form-control">
