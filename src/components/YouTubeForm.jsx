@@ -33,6 +33,8 @@ const YouTubeForm = () => {
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
+      validateOnChange={false}
+      validateOnBlur={false}
     >
       <Form>
         <div className="form-control">
@@ -100,6 +102,7 @@ const YouTubeForm = () => {
               const { push, remove, form } = fieldArrayProps;
               const { values } = form;
               const { phNumbers } = values;
+              console.log("form erros", form.errors);
               // console.log("fieldArrayProps", fieldArrayProps);
               // console.log("values", values);
               // console.log("phNumbers", phNumbers);
