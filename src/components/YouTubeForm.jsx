@@ -50,11 +50,12 @@ const YouTubeForm = () => {
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
+      // validateOnMount
       // validateOnChange={false}
       // validateOnBlur={false}
     >
       {(formik) => {
-        // console.log("formik props", formik);
+        console.log("formik props", formik);
         return (
           <Form>
             <div className="form-control">
@@ -185,7 +186,9 @@ const YouTubeForm = () => {
               visit all
             </button>
 
-            <button type="submit">Submit</button>
+            <button type="submit" disabled={/* !(formik.dirty && formik.isValid) */ !formik.isValid}>
+              Submit
+            </button>
           </Form>
         );
       }}
