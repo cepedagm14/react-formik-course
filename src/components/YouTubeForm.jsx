@@ -24,15 +24,17 @@ const initialValues = {
   phone: ["", ""],
   phNumbers: [""],
 };
-const onSubmit = (values) => {
+const onSubmit = (values, onSubmitProps) => {
   console.log("submit", values);
+  console.log("submitProps", onSubmitProps);
+  onSubmitProps.setSubmitting(false);
 };
 
 const validationSchema = Yup.object({
-  name: Yup.string().required("Required"),
-  email: Yup.string().email("invalid email format").required("Email required"),
-  channel: Yup.string().required("Required"),
-  commenst: Yup.string().required("Requerido"),
+  // name: Yup.string().required("Required"),
+  // email: Yup.string().email("invalid email format").required("Email required"),
+  // channel: Yup.string().required("Required"),
+  // commenst: Yup.string().required("Requerido"),
 });
 
 const validateComments = (value) => {
@@ -186,7 +188,13 @@ const YouTubeForm = () => {
               visit all
             </button>
 
-            <button type="submit" disabled={/* !(formik.dirty && formik.isValid) */ !formik.isValid}>
+            <button
+              type="submit"
+              disabled={
+                /* !(formik.dirty && formik.isValid) */ /* !formik.isValid */
+                !formik.isValid || formik.isSubmitting
+              }
+            >
               Submit
             </button>
           </Form>
