@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { TextField } from "@mui/material";
 import {
   Formik,
@@ -24,6 +24,21 @@ const initialValues = {
   phone: ["", ""],
   phNumbers: [""],
 };
+
+const savedValues = {
+  name: "aurigak",
+  email: "aurigak@aurigak.com",
+  channel: "aurigakDevs",
+  commenst: "welcome to formik",
+  address: "aurigak 123 987",
+  social: {
+    facebook: "aurigak",
+    twitter: "aurigak",
+  },
+  phone: ["", ""],
+  phNumbers: [""],
+};
+
 const onSubmit = (values, onSubmitProps) => {
   console.log("submit", values);
   console.log("submitProps", onSubmitProps);
@@ -47,17 +62,19 @@ const validateComments = (value) => {
 };
 
 const YouTubeForm = () => {
+  const [dataSaved, setDataSaved] = useState(null);
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={dataSaved || initialValues}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
+      enableReinitialize
       // validateOnMount
       // validateOnChange={false}
       // validateOnBlur={false}
     >
       {(formik) => {
-        console.log("formik props", formik);
+        // console.log("formik props", formik);
         return (
           <Form>
             <div className="form-control">
@@ -158,7 +175,7 @@ const YouTubeForm = () => {
               </FieldArray>
             </div>
 
-            <button
+            {/* <button
               type="button"
               onClick={() => formik.validateField("commenst")}
             >
@@ -186,8 +203,11 @@ const YouTubeForm = () => {
               }
             >
               visit all
-            </button>
+            </button> */}
 
+            <button type="button" onClick={() => setDataSaved(savedValues)}>
+              load saved data
+            </button>
             <button
               type="submit"
               disabled={
